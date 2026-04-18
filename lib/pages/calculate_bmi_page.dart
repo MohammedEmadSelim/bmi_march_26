@@ -136,8 +136,8 @@ class CalculateBmiPage extends StatelessWidget {
                       human.gender.toLowerCase() == 'male'
                           ? 'assets/images/bmi_nti/Vector.png'
                           : 'assets/images/bmi_nti/fam.png',
-                      height: 280,
-                      width: 83,
+                      height: 270,
+                      width: 70,
                     ),
                   ],
                 ),
