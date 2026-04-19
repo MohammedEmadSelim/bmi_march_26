@@ -1,4 +1,6 @@
+import 'package:bmi_march_26/widgets/calculated_text_form.dart';
 import 'package:bmi_march_26/widgets/custom_text_form.dart';
+import 'package:bmi_march_26/widgets/gender_selection.dart';
 import 'package:flutter/material.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -11,6 +13,10 @@ class InfoScreen extends StatefulWidget {
 class _InfoScreenState extends State<InfoScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
+  final TextEditingController heightController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+
+
   int? gender;
 
   @override
@@ -20,7 +26,7 @@ class _InfoScreenState extends State<InfoScreen> {
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
+          child: SingleChildScrollView(child: Column(
             children: [
               Text(
                 "BMI",
@@ -67,10 +73,15 @@ class _InfoScreenState extends State<InfoScreen> {
 
               GenderSelection(
                 selectedGender: (value) {
-                  print(value);
+                  print("the gender is:$value");
                   gender = value;
                 },
               ),
+
+              SizedBox(height: 40),
+              CalculatedTextFormField(title: "Your Height(cm)",hint:"Your Height" ,controller: heightController,),
+              SizedBox(height: 14),
+              CalculatedTextFormField(title: "Your Weight(cm)",hint:"Your Weight" ,controller: weightController,),
               SizedBox(height: 40),
               SizedBox(
                 width: 400,
@@ -80,6 +91,8 @@ class _InfoScreenState extends State<InfoScreen> {
                     print(nameController.text);
                     print(dateController.text);
                     print(gender);
+                    print(heightController.text);
+                    print(weightController.text);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -89,7 +102,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   ),
 
                   child: const Text(
-                    "Get Started",
+                    "Calculate BMI",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -99,98 +112,14 @@ class _InfoScreenState extends State<InfoScreen> {
                 ),
               ),
             ],
-          ),
+          ),),
         ),
       ),
     );
   }
 }
 
-class GenderSelection extends StatefulWidget {
-  GenderSelection({super.key, required this.selectedGender});
 
-  final ValueChanged<int> selectedGender;
 
-  @override
-  State<GenderSelection> createState() => _GenderSelectionState();
-}
 
-class _GenderSelectionState extends State<GenderSelection> {
-  int genderSelection = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(
-              "Choose Gender",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Color(0xff333333),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 20),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-                print("male");
-                genderSelection = 0;
-                widget.selectedGender(genderSelection);
-                setState(() {});
-              },
-              child: Container(
-                width: 120,
-                height: 130,
-                decoration: BoxDecoration(
-                  color: Color(0xffB3B2EA).withAlpha(50),
-                  borderRadius: BorderRadius.circular(16),
-                  border: genderSelection == 0
-                      ? Border.all(color: Colors.lightGreenAccent, width: 2)
-                      : null,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-
-                  children: [Image.asset("assets/male.png")],
-                ),
-              ),
-            ),
-
-            SizedBox(width: 40),
-            GestureDetector(
-              onTap: () {
-                print("female");
-                genderSelection = 1;
-                widget.selectedGender(genderSelection);
-                setState(() {});
-              },
-              child: Container(
-                width: 120,
-                height: 130,
-                decoration: BoxDecoration(
-                  color: Color(0xffB3B2EA).withAlpha(50),
-                  borderRadius: BorderRadius.circular(16),
-                  border: genderSelection == 1
-                      ? Border.all(color: Colors.lightGreenAccent, width: 2)
-                      : null,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [Image.asset("assets/female.png")],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
