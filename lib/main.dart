@@ -1,3 +1,4 @@
+import 'package:bmi_march_26/screen/screen%20info.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -122,7 +123,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(
                     width: 400,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // no navigatipn added
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => InfoScreen(),));
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

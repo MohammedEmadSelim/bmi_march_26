@@ -1,4 +1,4 @@
-import 'package:bmi_march_26/widgets/custom_text_form.dart';
+import 'package:bmi_march_26/widget/custum%20text.dart';
 import 'package:flutter/material.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -77,7 +77,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 20),
               GenderSelection(
                 selectedGender: (value) {
                   print(value);
@@ -135,141 +135,243 @@ class _GenderSelectionState extends State<GenderSelection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-    Row(
-    children: [
-    Text(
-    "Choose Gender",
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: Color(0xff333333),
-      ),
-    ),
-    ],
-    ),
-    SizedBox(height: 20),
-
-    Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-    Container(
-    width: 120,
-    height: 130,
-    decoration: BoxDecoration(
-    color: Color(0xffB3B2EA).withAlpha(50),
-    borderRadius: BorderRadius.circular(16),
-    ),
-    child:Column(
-    mainAxisAlignment: MainAxisAlignment.end,
-    Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-    GestureDetector(
-    onTap: () {
-    print("male");
-    genderSelection = 0;
-    widget.selectedGender(genderSelection);
-    setState(() {});
-    },
-    child: Container(
-    width: 120,
-    height: 130,
-    decoration: BoxDecoration(
-    color: Color(0xffB3B2EA).withAlpha(50),
-    borderRadius: BorderRadius.circular(16),
-    border: genderSelection == 0
-    ? Border.all(color: Colors.lightGreenAccent, width: 2)
-        : null,
-    ),
-    child: Column(
-    mainAxisAlignment: MainAxisAlignment.end,
-
-    children: [
-    Image.asset("assets/male.png"),
-    ],
-    ) ,
-    ),
-    SizedBox(width: 40,),
-    Container(
-    width: 120,
-    height: 130,
-    decoration: BoxDecoration(
-    color: Color(0xffB3B2EA).withAlpha(50),
-    borderRadius: BorderRadius.circular(16),
-    ),
-    child:Column(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: [
-    Image.asset("assets/female.png",),
-    ],
-    ) ,
-
-    ),
-
-    ],
-    children: [Image.asset("assets/male.png")],
-    ),
-    ),
-    ),
-
-    SizedBox(width: 40),
-    GestureDetector(
-    onTap: () {
-    print("female");
-    genderSelection = 1;
-    widget.selectedGender(genderSelection);
-    setState(() {});
-    },
-    child: Container(
-    width: 120,
-    height: 130,
-    decoration: BoxDecoration(
-    color: Color(0xffB3B2EA).withAlpha(50),
-    borderRadius: BorderRadius.circular(16),
-    border: genderSelection == 1
-    ? Border.all(color: Colors.lightGreenAccent, width: 2)
-        : null,
-    ),
-    child: Column(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: [Image.asset("assets/female.png")],
-    ),
-    ),
-    SizedBox(height: 40),
-    SizedBox(
-    width: 400,
-    child: ElevatedButton(
-    onPressed: () {
-    // navigation to info screen
-    print(nameController.text);
-    print(dateController.text);
-    },
-    style: ElevatedButton.styleFrom(
-    shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(12),
-    ),
-    backgroundColor: Color(0xff484783),
-    ),
-
-    child: const Text(
-    "Get Started",
-    style: TextStyle(
-    color: Colors.white,
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
-    ),
-    ),
-    ),
-    ),
-    ],
-    ),
-    ),
-    ),
-    ),
-    ],
-    ),
-    ],
+        Row(
+          children: [
+            Text(
+              "Choose Gender",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Color(0xff333333),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                print("male");
+                genderSelection = 0;
+                widget.selectedGender(genderSelection);
+                setState(() {});
+              },
+              child: Container(
+                width: 120,
+                height: 130,
+                decoration: BoxDecoration(
+                  color: Color(0xffB3B2EA).withAlpha(50),
+                  borderRadius: BorderRadius.circular(16),
+                  border: genderSelection == 0
+                      ? Border.all(color: Colors.lightGreenAccent, width: 2)
+                      : null,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [Image.asset("assets/male.png")],
+                ),
+              ),
+            ),
+            SizedBox(width: 40),
+            GestureDetector(
+              onTap: () {
+                print("female");
+                genderSelection = 1;
+                widget.selectedGender(genderSelection);
+                setState(() {});
+              },
+              child: Container(
+                width: 120,
+                height: 130,
+                decoration: BoxDecoration(
+                  color: Color(0xffB3B2EA).withAlpha(50),
+                  borderRadius: BorderRadius.circular(16),
+                  border: genderSelection == 1
+                      ? Border.all(color: Colors.lightGreenAccent, width: 2)
+                      : null,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [Image.asset("assets/female.png")],
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 40),
+        SizedBox(
+          width: 400,
+          child: ElevatedButton(
+            onPressed: () {
+              // print(nameController.text);
+              // print(dateController.text);
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              backgroundColor: Color(0xff484783),
+            ),
+            child: const Text(
+              "Get Started",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
-}
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Column(
+  //     children: [
+  //       Row(
+  //         children: [
+  //           Text(
+  //             "Choose Gender",
+  //             style: TextStyle(
+  //               fontSize: 14,
+  //               fontWeight: FontWeight.w500,
+  //               color: Color(0xff333333),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  //   // ],
+  //   // ),
+  //   // SizedBox(height: 20),
+  //   //
+  //   // Row(
+  //   // mainAxisAlignment: MainAxisAlignment.center,
+  //   // children: [
+  //   // Container(
+  //   // width: 120,
+  //   // height: 130,
+  //   // decoration: BoxDecoration(
+  //   // color: Color(0xffB3B2EA).withAlpha(50),
+  //   // borderRadius: BorderRadius.circular(16),
+  //   // ),
+  //   // child:Column(
+  //   // mainAxisAlignment: MainAxisAlignment.end,
+  //   // Row(
+  //   // mainAxisAlignment: MainAxisAlignment.center,
+  //   // children: [
+  //   // GestureDetector(
+  //   // onTap: () {
+  //   // print("male");
+  //   // genderSelection = 0;
+  //   // widget.selectedGender(genderSelection);
+  //   // setState(() {});
+  //   // },
+  //   // child: Container(
+  //   // width: 120,
+  //   // height: 130,
+  //   // decoration: BoxDecoration(
+  //   // color: Color(0xffB3B2EA).withAlpha(50),
+  //   // borderRadius: BorderRadius.circular(16),
+  //   // border: genderSelection == 0
+  //   // ? Border.all(color: Colors.lightGreenAccent, width: 2)
+  //   //     : null,
+  //   // ),
+  //   // child: Column(
+  //   // mainAxisAlignment: MainAxisAlignment.end,
+  //   //
+  //   // children: [
+  //   // Image.asset("assets/male.png"),
+  //   // ],
+  //   // ) ,
+  //   // ),
+  //   // SizedBox(width: 40,),
+  //   // Container(
+  //   // width: 120,
+  //   // height: 130,
+  //   // decoration: BoxDecoration(
+  //   // color: Color(0xffB3B2EA).withAlpha(50),
+  //   // borderRadius: BorderRadius.circular(16),
+  //   // ),
+  //   // child:Column(
+  //   // mainAxisAlignment: MainAxisAlignment.end,
+  //   // children: [
+  //   // Image.asset("assets/female.png",),
+  //   // ],
+  //   // ) ,
+  //   //
+  //   // ),
+  //   //
+  //   // ],
+  //   // children: [Image.asset("assets/male.png")],
+  //   // ),
+  //   // ),
+  //   // ),
+  //   //
+  //   // SizedBox(width: 40),
+  //   // GestureDetector(
+  //   // onTap: () {
+  //   // print("female");
+  //   // genderSelection = 1;
+  //   // widget.selectedGender(genderSelection);
+  //   // setState(() {});
+  //   // },
+  //   // child: Container(
+  //   // width: 120,
+  //   // height: 130,
+  //   // decoration: BoxDecoration(
+  //   // color: Color(0xffB3B2EA).withAlpha(50),
+  //   // borderRadius: BorderRadius.circular(16),
+  //   // border: genderSelection == 1
+  //   // ? Border.all(color: Colors.lightGreenAccent, width: 2)
+  //   //     : null,
+  //   // ),
+  //   // child: Column(
+  //   // mainAxisAlignment: MainAxisAlignment.end,
+  //   // children: [Image.asset("assets/female.png")],
+  //   // ),
+  //   // ),
+  //   // SizedBox(height: 40),
+  //   // SizedBox(
+  //   // width: 400,
+  //   // child: ElevatedButton(
+  //   // onPressed: () {
+  //   // // navigation to info screen
+  //   // print(nameController.text);
+  //   // print(dateController.text);
+  //   // },
+  //   // style: ElevatedButton.styleFrom(
+  //   // shape: RoundedRectangleBorder(
+  //   // borderRadius: BorderRadius.circular(12),
+  //   // ),
+  //   // backgroundColor: Color(0xff484783),
+  //   // ),
+  //   //
+  //   // child: const Text(
+  //   // "Get Started",
+  //   // style: TextStyle(
+  //   // color: Colors.white,
+  //   // fontSize: 18,
+  //   // fontWeight: FontWeight.w600,
+  //   // ),
+  //   // ),
+  //   // ),
+  //   // ),
+  //   // ],
+  //   // ),
+  //   // ),
+  //   // ),
+  //   // ),
+  //   // ],
+  //   // )
+  //   // ,
+  //   // ]
+  //   // ,
+  //   // );
+  // }
+}
