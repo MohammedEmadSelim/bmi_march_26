@@ -47,6 +47,7 @@ class CalculatedTextFormField extends StatelessWidget {
               child: Icon(Icons.add),
             ),
             prefixIcon: GestureDetector(
+
               onTap: () {
                 var res = int.tryParse(controller.text);
                 if (res != null) {
