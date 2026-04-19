@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -9,13 +7,14 @@ class CustomTextFormField extends StatelessWidget {
     required this.title,
     required this.hint,
     this.readOnly = false,
-    this.onTap,
+    this.onTap, this.onChanged,
   });
 
   final TextEditingController nameController;
   final String title;
   final String hint;
   final bool? readOnly;
+  final void Function(String)? onChanged;
 
   final void Function()? onTap;
 
@@ -37,6 +36,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
         SizedBox(height: 18),
         TextFormField(
+          onChanged:onChanged,
           controller: nameController,
           readOnly: readOnly!,
           onTap: onTap,
