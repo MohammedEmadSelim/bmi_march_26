@@ -1,3 +1,4 @@
+import 'package:bmi/Pages/HomePage.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/Buttom_send.dart';
@@ -49,7 +50,7 @@ class SplachScreen extends StatelessWidget {
                         text: 'Get Start',
                         on_pers: () {
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (c){
-                            return SplachScreen();
+                            return Homepage();
                           }));
                         },
                       )
