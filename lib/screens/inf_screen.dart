@@ -25,19 +25,21 @@ class InfScreen extends StatelessWidget {
                       color: Color(0xff1A6143),
                     ),
                   ),
-                  CustomTextForm(label: 'Name',),
-                  CustomTextForm(label: 'Date',),
-                  SizedBox(height: 30,),
+                  CustomTextForm(label: 'Name', enable: true),
+                  CustomTextForm(
+                    label: 'Birthdate',
+                    enable: false,
+                    onTap: () {
+                      DatePickerDialog(firstDate: DateTime(2000), lastDate: DateTime.now());
+                      },
+                  ),
+                  SizedBox(height: 30),
                   Row(
                     children: [
-                      Text('Choose Gender',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                      ),
+                      Text('Choose Gender', style: TextStyle(fontSize: 20)),
                     ],
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -48,14 +50,14 @@ class InfScreen extends StatelessWidget {
                             height: 120,
                             decoration: BoxDecoration(
                               color: Color(0xffEBEDFC),
-                              borderRadius: BorderRadius.circular(16)
+                              borderRadius: BorderRadius.circular(16),
                             ),
                             child: Image.asset('assets/images/male.png'),
                           ),
-                          Text('male')
+                          Text('male'),
                         ],
                       ),
-                      SizedBox(width: 60,),
+                      SizedBox(width: 60),
                       Column(
                         children: [
                           Container(
@@ -63,21 +65,18 @@ class InfScreen extends StatelessWidget {
                             height: 120,
                             decoration: BoxDecoration(
                               color: Color(0xffEBEDFC),
-                              borderRadius: BorderRadius.circular(16)
+                              borderRadius: BorderRadius.circular(16),
                             ),
                             child: Image.asset('assets/images/female.png'),
                           ),
                           Text('female'),
                         ],
                       ),
-                    ],),
-                  SizedBox(height: 25,),
-                  Row(
-                    children: [
-                      Text('   Your Height(cm)'),
                     ],
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 25),
+                  Row(children: [Text('   Your Height(cm)')]),
+                  SizedBox(height: 5),
                   TextFormField(
                     textAlign: TextAlign.center,
                     controller: heightController,
@@ -88,17 +87,14 @@ class InfScreen extends StatelessWidget {
                       filled: true,
                       fillColor: const Color(0xffE9E7EA),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none),
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 25,),
-                  Row(
-                    children: [
-                      Text('   Your weight(cm)'),
-                    ],
-                  ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 25),
+                  Row(children: [Text('   Your weight(cm)')]),
+                  SizedBox(height: 5),
                   TextFormField(
                     textAlign: TextAlign.center,
                     controller: weightController,
@@ -109,14 +105,18 @@ class InfScreen extends StatelessWidget {
                       filled: true,
                       fillColor: const Color(0xffE9E7EA),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none),
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30),
                   GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => InfScreen(),));
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => InfScreen()),
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 8),
@@ -137,8 +137,6 @@ class InfScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-            
-            
                 ],
               ),
             ),
