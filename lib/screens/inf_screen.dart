@@ -1,11 +1,12 @@
+import 'package:bmi_march_26/widgets/calc_height_and_weight_Text_field.dart';
 import 'package:bmi_march_26/widgets/custom_text_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../widgets/gender_selection.dart';
 
 class InfScreen extends StatefulWidget {
   const InfScreen({super.key});
-
 
   @override
   State<InfScreen> createState() => _InfScreenState();
@@ -41,7 +42,7 @@ class _InfScreenState extends State<InfScreen> {
                   CustomTextForm(
                     label: 'Birthdate',
                     enable: false,
-                    onTap:() async {
+                    onTap: () async {
                       print("Birthdate field taped");
                       var res = await showDatePicker(
                         context: context,
@@ -57,45 +58,19 @@ class _InfScreenState extends State<InfScreen> {
                     },
                   ),
                   SizedBox(height: 30),
-                  GenderSelection(selectedGender: (value) {
-                    gender = value;
-                  },),
+                  GenderSelection(
+                    selectedGender: (value) {
+                      gender = value;
+                    },
+                  ),
                   SizedBox(height: 25),
                   Row(children: [Text('   Your Height(cm)')]),
                   SizedBox(height: 5),
-                  TextFormField(
-                    textAlign: TextAlign.center,
-                    controller: heightController,
-                    decoration: InputDecoration(
-                      prefixIcon: GestureDetector(child: Icon(Icons.remove)),
-                      suffixIcon: GestureDetector(child: Icon(Icons.add)),
-                      hintText: 'your height',
-                      filled: true,
-                      fillColor: const Color(0xffE9E7EA),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
+                  HeightAndWeightTextField(heightController: heightController),
                   SizedBox(height: 25),
                   Row(children: [Text('   Your weight(cm)')]),
                   SizedBox(height: 5),
-                  TextFormField(
-                    textAlign: TextAlign.center,
-                    controller: weightController,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.remove),
-                      suffixIcon: Icon(Icons.add),
-                      hintText: 'your weight',
-                      filled: true,
-                      fillColor: const Color(0xffE9E7EA),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
+                  HeightAndWeightTextField(heightController: weightController),
                   SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
