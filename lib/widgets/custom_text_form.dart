@@ -11,7 +11,7 @@ class CustomTextForm extends StatelessWidget {
   TextEditingController? controller = TextEditingController();
   final String label;
   final bool enable;
-  void Function()? onTap;
+   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Column(

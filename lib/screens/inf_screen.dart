@@ -1,8 +1,11 @@
 import 'package:bmi_march_26/widgets/custom_text_form.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/gender_selection.dart';
+
 class InfScreen extends StatefulWidget {
-  InfScreen({super.key});
+  const InfScreen({super.key});
+
 
   @override
   State<InfScreen> createState() => _InfScreenState();
@@ -14,7 +17,7 @@ class _InfScreenState extends State<InfScreen> {
   final TextEditingController dateController = TextEditingController();
 
   final TextEditingController weightController = TextEditingController();
-
+  int? gender;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,66 +41,25 @@ class _InfScreenState extends State<InfScreen> {
                   CustomTextForm(
                     label: 'Birthdate',
                     enable: false,
-                    onTap:
-                      () async {
+                    onTap:() async {
+                      print("Birthdate field taped");
+                      var res = await showDatePicker(
+                        context: context,
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime.now(),
+                      );
+                      print(res);
+                      if (res != null) {
+                        String date = res.toIso8601String();
 
-                        var res = await showDatePicker(
-                          context: context,
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2030),
-                        );
-                        if (res != null) {
-                          String date = res.toIso8601String();
-
-                          dateController.text = date.substring(0, 10);
-                        }
-                        setState(() {
-                        });
-                      },
-
-
+                        dateController.text = date.substring(0, 10);
+                      }
+                    },
                   ),
                   SizedBox(height: 30),
-                  Row(
-                    children: [
-                      Text('Choose Gender', style: TextStyle(fontSize: 20)),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              color: Color(0xffEBEDFC),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Image.asset('assets/images/male.png'),
-                          ),
-                          Text('male'),
-                        ],
-                      ),
-                      SizedBox(width: 60),
-                      Column(
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              color: Color(0xffEBEDFC),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Image.asset('assets/images/female.png'),
-                          ),
-                          Text('female'),
-                        ],
-                      ),
-                    ],
-                  ),
+                  GenderSelection(selectedGender: (value) {
+                    gender = value;
+                  },),
                   SizedBox(height: 25),
                   Row(children: [Text('   Your Height(cm)')]),
                   SizedBox(height: 5),
