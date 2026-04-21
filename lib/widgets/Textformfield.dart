@@ -15,7 +15,7 @@ class Text_form_field_custom extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(color: Colors.grey, fontSize: 15),
+              style: TextStyle(color: Colors.grey, fontSize: 17),
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:bmi/widgets/small_view_select_gender.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -21,22 +22,46 @@ class Homepage extends StatelessWidget {
                 style: TextStyle(color: Colors.green, fontSize: 40),
               ),
             ),
-            Text_form_field_custom(title: 'Name',nameController: nameEditingController,readonly: false,),
-            SizedBox(height: 10,),
-            Text_form_field_custom(title: 'Birth Date',nameController: dateEditingController,readonly: true,onTap: ()async{
-              var result = await showDatePicker(context: context, firstDate: DateTime(1950), lastDate: DateTime(2050));
-              if(result != null){
-                // 'yyyy-MM-dd'
-                String formattedDate = DateFormat('yyyy-MM-dd').format(result);
-                dateEditingController.text = formattedDate;
-              }
-              print(nameEditingController.text);
-              print(dateEditingController.text);
-              },)
-
-          ],
-        ),
-      ),
-    );
+            Text_form_field_custom(
+              title: 'Name',
+              nameController: nameEditingController,
+              readonly: false,
+            ),
+            SizedBox(height: 10),
+            Text_form_field_custom(
+              title: 'Birth Date',
+              nameController: dateEditingController,
+              readonly: true,
+              onTap: () async {
+                var result = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(1950),
+                  lastDate: DateTime(2050),
+                );
+                if (result != null) {
+                  // 'yyyy-MM-dd'
+                  String formattedDate = DateFormat(
+                    'yyyy-MM-dd',
+                  ).format(result);
+                  dateEditingController.text = formattedDate;
+                }
+              },
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Text(
+                  'Choose Gender',
+                  style: TextStyle(color: Colors.grey, fontSize: 17),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+              small_view_select_gender(),
+            ],
+          ),
+        ),   
+      );
   }
 }
+
