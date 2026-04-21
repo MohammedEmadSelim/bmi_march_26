@@ -1,19 +1,16 @@
+import 'package:bmi/cubit/gender_cubit/gender_cubit.dart';
 import 'package:bmi/widgets/Continer_gender.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class small_view_select_gender extends StatefulWidget {
-  const small_view_select_gender({super.key});
-
-  @override
-  State<small_view_select_gender> createState() =>
-      _small_view_select_genderState();
-}
-
-class _small_view_select_genderState extends State<small_view_select_gender> {
-  int? selectedGender;
+class small_view_select_gender extends StatelessWidget {
+  small_view_select_gender({super.key});
   @override
   Widget build(BuildContext context) {
-    return Row(
+
+    return BlocBuilder<GenderCubit, int?>(
+      builder: (context, selectedGender) {
+         return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Continer_gender(
@@ -21,9 +18,7 @@ class _small_view_select_genderState extends State<small_view_select_gender> {
           imagePath: 'assets/images/bmi_nti/Group.png',
           isSelected: selectedGender == 0,
           onTap: () {
-            setState(() {
-              selectedGender = 0;
-            });
+            context.read<GenderCubit>().select(0);
           },
         ),
         SizedBox(width: 20),
@@ -32,12 +27,12 @@ class _small_view_select_genderState extends State<small_view_select_gender> {
           imagePath: 'assets/images/bmi_nti/female.png',
           isSelected: selectedGender == 1,
           onTap: () {
-            setState(() {
-              selectedGender = 1;
-            });
+            context.read<GenderCubit>().select(1);
           },
         ),
+        // });
       ],
     );
+  }); 
   }
 }
