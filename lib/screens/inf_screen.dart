@@ -1,9 +1,18 @@
 import 'package:bmi_march_26/widgets/custom_text_form.dart';
 import 'package:flutter/material.dart';
 
-class InfScreen extends StatelessWidget {
+class InfScreen extends StatefulWidget {
   InfScreen({super.key});
+
+  @override
+  State<InfScreen> createState() => _InfScreenState();
+}
+
+class _InfScreenState extends State<InfScreen> {
   final TextEditingController heightController = TextEditingController();
+
+  final TextEditingController dateController = TextEditingController();
+
   final TextEditingController weightController = TextEditingController();
 
   @override
@@ -29,9 +38,24 @@ class InfScreen extends StatelessWidget {
                   CustomTextForm(
                     label: 'Birthdate',
                     enable: false,
-                    onTap: () {
-                      DatePickerDialog(firstDate: DateTime(2000), lastDate: DateTime.now());
+                    onTap:
+                      () async {
+
+                        var res = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2030),
+                        );
+                        if (res != null) {
+                          String date = res.toIso8601String();
+
+                          dateController.text = date.substring(0, 10);
+                        }
+                        setState(() {
+                        });
                       },
+
+
                   ),
                   SizedBox(height: 30),
                   Row(
