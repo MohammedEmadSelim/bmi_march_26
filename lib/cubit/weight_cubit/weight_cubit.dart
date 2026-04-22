@@ -10,7 +10,7 @@ class WeightCubit extends Cubit<int> {
    }
  }
   void decrement() {
-    if (state > 0 && state != null) {
+    if (state > 0) {
      emit(state - 1); 
     } 
   }

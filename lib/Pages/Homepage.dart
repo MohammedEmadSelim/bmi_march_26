@@ -1,27 +1,24 @@
-
-import 'package:bmi/cubit/gender_cubit/gender_cubit.dart';
-import 'package:bmi/cubit/height_cubit/hight_cubit.dart';
-import 'package:bmi/cubit/weight_cubit/weight_cubit.dart';
 import 'package:bmi/widgets/custom_text_input_num.dart';
 import 'package:bmi/widgets/small_view_select_gender.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:intl/intl.dart';
 
 import '../widgets/Textformfield.dart';
 
 class Homepage extends StatelessWidget {
-    Homepage({super.key}); 
+  Homepage({super.key});
   final TextEditingController nameEditingController = TextEditingController();
   final TextEditingController dateEditingController = TextEditingController();
-   String? gender ;
-  final TextEditingController heightEditingController = TextEditingController(text: '0');
-  final TextEditingController weightEditingController = TextEditingController(text: '0');
+
+  final TextEditingController heightEditingController = TextEditingController(
+    text: '0',
+  );
+  final TextEditingController weightEditingController = TextEditingController(
+    text: '0',
+  );
   @override
   Widget build(BuildContext context) {
-    gender = context.watch<GenderCubit>().state == 0 ? 'Male' : context.watch<GenderCubit>().state == 1 ? 'Female' : 'Not Selected';
     return Scaffold(
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(horizontal: 15, vertical: 20),
@@ -71,15 +68,20 @@ class Homepage extends StatelessWidget {
               ),
               SizedBox(height: 10),
               small_view_select_gender(),
-              SizedBox(height: 12,),
-             CustomTextInputNum_Height(controller: heightEditingController, title: 'Your Height(cm)',),
-             SizedBox(height: 10,),
-             CustomTextInputNum_Weight(controller: weightEditingController, title: 'Your Weight(kg)',)
-              ],
-            ),
+              SizedBox(height: 12),
+              CustomTextInputNum_Height(
+                controller: heightEditingController,
+                title: 'Your Height(cm)',
+              ),
+              SizedBox(height: 10),
+              CustomTextInputNum_Weight(
+                controller: weightEditingController,
+                title: 'Your Weight(kg)',
+              ),
+            ],
+          ),
         ),
-        ),   
-      );
+      ),
+    );
   }
 }
-
