@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bmi/cubit/gender_cubit/gender_cubit.dart';
 import 'package:bmi/widgets/Buttom_send.dart';
 import 'package:bmi/widgets/custom_text_input_num.dart';
@@ -84,11 +86,11 @@ class Homepage extends StatelessWidget {
               SizedBox(height: 12,),
               Buttom_send(on_pers: (){
                 String gender = context.read<GenderCubit>().state == 0 ? 'Male' : context.read<GenderCubit>().state == 1 ? 'Female' : 'Not Selected';
-                print(gender);
-                print('Name: ${nameEditingController.text}');
-                print('Birth Date: ${dateEditingController.text}');
-                print('Height: ${heightEditingController.text} cm');
-                print('Weight: ${weightEditingController.text} kg');
+                log(gender);
+                log('Name: ${nameEditingController.text}');
+                log('Birth Date: ${dateEditingController.text}');
+                log('Height: ${heightEditingController.text} cm');
+                log('Weight: ${weightEditingController.text} kg');
               }, text: 'Calculate BMI')
             ],
           ),
