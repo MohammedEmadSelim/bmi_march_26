@@ -1,6 +1,9 @@
+import 'package:bmi/cubit/gender_cubit/gender_cubit.dart';
+import 'package:bmi/widgets/Buttom_send.dart';
 import 'package:bmi/widgets/custom_text_input_num.dart';
 import 'package:bmi/widgets/small_view_select_gender.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:intl/intl.dart';
 
@@ -78,6 +81,15 @@ class Homepage extends StatelessWidget {
                 controller: weightEditingController,
                 title: 'Your Weight(kg)',
               ),
+              SizedBox(height: 20,),
+              Buttom_send(on_pers: (){
+                String gender = context.read<GenderCubit>().state == 0 ? 'Male' : context.read<GenderCubit>().state == 1 ? 'Female' : 'Not Selected';
+                print(gender);
+                print('Name: ${nameEditingController.text}');
+                print('Birth Date: ${dateEditingController.text}');
+                print('Height: ${heightEditingController.text} cm');
+                print('Weight: ${weightEditingController.text} kg');
+              }, text: 'Calculate BMI')
             ],
           ),
         ),
