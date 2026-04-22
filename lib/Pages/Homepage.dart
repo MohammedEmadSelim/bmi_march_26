@@ -81,7 +81,7 @@ class Homepage extends StatelessWidget {
                 controller: weightEditingController,
                 title: 'Your Weight(kg)',
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 12,),
               Buttom_send(on_pers: (){
                 String gender = context.read<GenderCubit>().state == 0 ? 'Male' : context.read<GenderCubit>().state == 1 ? 'Female' : 'Not Selected';
                 print(gender);

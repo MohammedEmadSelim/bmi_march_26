@@ -22,6 +22,7 @@ class CustomTextInputNum_Height extends StatelessWidget {
           ),
           SizedBox(height: 8,),
               TextFormField(
+                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 0, 0, 0) ),
                 controller: controller,
                 textAlign: TextAlign.center,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -32,14 +33,14 @@ class CustomTextInputNum_Height extends StatelessWidget {
                     context.read<HeightCubit>().decrement();
                    controller.text =  context.read<HeightCubit>().state.toString();
                     },
-                    child: Icon(Icons.remove,size: 30,)),
+                    child: Icon(Icons.remove,size: 30,color: Color(0xff484783),)),
                   suffixIcon: GestureDetector(
                     onTap: () {
                      context.read<HeightCubit>().increment();
                      controller.text =  context.read<HeightCubit>().state.toString();
                      
                     },
-                    child: Icon(Icons.add,size: 30,)) ,
+                    child: Icon(Icons.add,size: 30,color: Color(0xff484783))) ,
                   fillColor: Color(0xffB3B2EA).withAlpha(50),
                   filled: true,
                   focusedBorder: OutlineInputBorder(
@@ -81,6 +82,7 @@ class CustomTextInputNum_Weight extends StatelessWidget {
               TextFormField(
                 controller: controller,
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 0, 0, 0) ),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
                   prefixIcon: GestureDetector(
@@ -88,14 +90,14 @@ class CustomTextInputNum_Weight extends StatelessWidget {
                       context.read<WeightCubit>().decrement();
                       controller.text =  context.read<WeightCubit>().state.toString();
                     },
-                    child: Icon(Icons.remove,size: 30,)),
+                    child: Icon(Icons.remove,size: 30,color: Color(0xff484783),)),
                   suffixIcon: GestureDetector(
                     onTap: () {
                       context.read<WeightCubit>().increment();
                       controller.text =  context.read<WeightCubit>().state.toString();
                      
                     },
-                    child: Icon(Icons.add,size: 30,)) ,
+                    child: Icon(Icons.add,size: 30,color: Color(0xff484783))) ,
                   fillColor: Color(0xffB3B2EA).withAlpha(50),
                   filled: true,
                   focusedBorder: OutlineInputBorder(
