@@ -1,9 +1,12 @@
 import 'dart:developer';
 
+import 'package:bmi/Models/bmi_model.dart';
+import 'package:bmi/Pages/result_page.dart';
 import 'package:bmi/cubit/gender_cubit/gender_cubit.dart';
 import 'package:bmi/widgets/Buttom_send.dart';
 import 'package:bmi/widgets/custom_text_input_num.dart';
 import 'package:bmi/widgets/small_view_select_gender.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,15 +86,26 @@ class Homepage extends StatelessWidget {
                 controller: weightEditingController,
                 title: 'Your Weight(kg)',
               ),
-              SizedBox(height: 12,),
-              Buttom_send(on_pers: (){
-                String gender = context.read<GenderCubit>().state == 0 ? 'Male' : context.read<GenderCubit>().state == 1 ? 'Female' : 'Not Selected';
-                log(gender);
-                log('Name: ${nameEditingController.text}');
-                log('Birth Date: ${dateEditingController.text}');
-                log('Height: ${heightEditingController.text} cm');
-                log('Weight: ${weightEditingController.text} kg');
-              }, text: 'Calculate BMI')
+              SizedBox(height: 12),
+              Buttom_send(
+                on_pers: () async{
+                  String gender =
+                      context.read<GenderCubit>().state == 0
+                          ? 'Male'
+                          : context.read<GenderCubit>().state == 1
+                          ? 'Female'
+                          : 'Not Selected';
+                  // log(gender);
+                  // log('Name: ${nameEditingController.text}');
+                  // log('Birth Date: ${dateEditingController.text}');
+                  // log('Height: ${heightEditingController.text} cm');
+                  // log('Weight: ${weightEditingController.text} kg');
+                  var res = await get_data();
+                 var bmi =  BmiResponse.fromJson(res.data);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(respon: bmi,)));
+                },
+                text: 'Calculate BMI',
+              ),
             ],
           ),
         ),
@@ -99,3 +113,24 @@ class Homepage extends StatelessWidget {
     );
   }
 }
+
+Future<Response<dynamic>> get_data() async {
+  Dio bmi = Dio();
+  try {
+      var res = await bmi.get(
+        "https://api.apiverve.com/v1/bmicalculator?weight=70&height=170&unit=metric",
+        options: Options(
+          headers: {"x-api-key": "ff870e7d-5d78-4309-82bc-0b5e0347db0f"},
+        ),
+      );
+      return res;
+    } on DioException catch (ec) {
+      throw ec;
+      print(ec.response);
+    } catch (e) {
+      throw e;
+
+      print("========>${e}");
+    }
+  }
+
