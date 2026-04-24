@@ -1,4 +1,5 @@
 import 'package:bmi_march_26/model/bmi_model.dart';
+import 'package:bmi_march_26/screens/res_screen.dart';
 import 'package:bmi_march_26/widgets/calculated_text_form.dart';
 import 'package:bmi_march_26/widgets/custom_text_form.dart';
 import 'package:bmi_march_26/widgets/gender_selection.dart';
@@ -97,20 +98,21 @@ class _InfoScreenState extends State<InfoScreen> {
                   width: 400,
                   child: ElevatedButton(
                     onPressed: () async {
-                      // navigation to info screen
-                      print(nameController.text);
-                      print(dateController.text);
-                      print(gender);
-                      print(heightController.text);
-                      print(weightController.text);
 
-                      var res = await fetchBmi();
+                      var res = await fetchBmi(
+                        height:heightController.text,
+                        weight:weightController.text,
+                      );
                       var bmi = BmiResponse.fromJson(res.data);
 
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ResScreen(res: bmi),
+                          builder: (context) => ResScreen(
+                            bmi: bmi,
+                            name: nameController.text,
+                            birthdate: dateController.text,
+                          ),
                         ),
                       );
                     },
@@ -139,11 +141,11 @@ class _InfoScreenState extends State<InfoScreen> {
     );
   }
 
-  Future<Response<dynamic>> fetchBmi() async {
+  Future<Response<dynamic>> fetchBmi({required String height,required String weight}) async {
     Dio apiObj = Dio();
     try {
       var res = await apiObj.get(
-        "https://api.apiverve.com/v1/bmicalculator?weight=70&height=170&unit=metric",
+        "https://api.apiverve.com/v1/bmicalculator?weight=$weight&height=$height&unit=metric",
         options: Options(
           headers: {"x-api-key": "ff870e7d-5d78-4309-82bc-0b5e0347db0f"},
         ),
@@ -157,16 +159,5 @@ class _InfoScreenState extends State<InfoScreen> {
 
       print("========>${e}");
     }
-  }
-}
-
-class ResScreen extends StatelessWidget {
-  const ResScreen({super.key, this.res});
-
-  final BmiResponse? res;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text(res?.data?.bmi.toString() ?? "no data")));
   }
 }
