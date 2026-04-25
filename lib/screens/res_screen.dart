@@ -2,12 +2,16 @@ import 'package:bmi_march_26/model/bmi_model.dart';
 import 'package:flutter/material.dart';
 
 class ResScreen extends StatelessWidget {
-  const ResScreen({super.key, required this.bmi, required this.name, required this.birthdate});
+  const ResScreen({
+    super.key,
+    required this.bmi,
+    required this.name,
+    required this.birthdate,
+  });
+
   final BmiResponse bmi;
   final String name;
   final String birthdate;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class ResScreen extends StatelessWidget {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(height: 40),
-          
+
                           Column(
                             children: [
                               Text(
@@ -46,7 +50,7 @@ class ResScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                               birthdate,
+                                birthdate,
                                 style: TextStyle(
                                   color: Color(0xffffffff),
                                   fontSize: 14,
@@ -62,7 +66,7 @@ class ResScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   Text(
-                                    bmi.data?.bmi.toString()??"",
+                                    bmi.data?.bmi.toString() ?? "",
                                     style: TextStyle(
                                       color: Color(0xffffffff),
                                       fontSize: 24,
@@ -82,14 +86,14 @@ class ResScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 24),
-          
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Column(
                                 children: [
                                   Text(
-                                    bmi.data?.height??"no data",
+                                    bmi.data?.height ?? "no data",
                                     style: TextStyle(
                                       color: Color(0xffffffff),
                                       fontSize: 24,
@@ -112,11 +116,11 @@ class ResScreen extends StatelessWidget {
                                 child: VerticalDivider(thickness: 2),
                               ),
                               SizedBox(width: 20),
-          
+
                               Column(
                                 children: [
                                   Text(
-                                    bmi.data?.weight??"no data",
+                                    bmi.data?.weight ?? "no data",
                                     style: TextStyle(
                                       color: Color(0xffffffff),
                                       fontSize: 24,
@@ -151,31 +155,35 @@ class ResScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
-                  crossAxisAlignment:CrossAxisAlignment.start ,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(),
                     Text(
                       "Under Weight",
-                      style: TextStyle(fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      fontSize: 24),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 10),
                     Text(
                       "Your BMI is less than 18.5",
-                      style: TextStyle(fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                      fontSize: 16),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 10),
                     Text(
                       "Lorem ipsum dolor sit amet consectetur. Sagittis interdum dui enim imperdiet sapien cursus velit pharetra. Viverra justo tempor dictum odio. Nisl non dui integer orci nulla eget laoreet tellus. Orci nunc a orci convallis ac orci. Urna auctor at elementum sit ante maecenas ullamcorper rhoncus dictum. Morbi venenatis lectus ultrices euismod. Laoreet purus risus amet enim sagittis ut. Consectetur libero orci urnager dignissi est.",
-                      style: TextStyle(fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                          fontSize: 16),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
-          
-          
                   ],
                 ),
               ),
@@ -184,7 +192,7 @@ class ResScreen extends StatelessWidget {
                 width: 400,
                 child: ElevatedButton(
                   onPressed: () async {
-          
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -192,7 +200,7 @@ class ResScreen extends StatelessWidget {
                     ),
                     backgroundColor: Color(0xff484783),
                   ),
-          
+
                   child: const Text(
                     "Calculate BMI Again",
                     style: TextStyle(
