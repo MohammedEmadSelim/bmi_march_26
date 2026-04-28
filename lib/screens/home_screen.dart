@@ -43,10 +43,10 @@ class HomeScreen extends StatelessWidget {
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 8),
-                        width: 300,
+                        width: 350,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Colors.blue,
+                          color: Color(0xff484783),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(

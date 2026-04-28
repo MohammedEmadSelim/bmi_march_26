@@ -5,13 +5,16 @@ class HeightAndWeightTextField extends StatelessWidget {
   const HeightAndWeightTextField({
     super.key,
     required this.heightController,
+    required this.validator,
   });
 
   final TextEditingController heightController;
-
+  final String? Function(String?)? validator ;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: TextInputType.numberWithOptions(),
+      validator: validator,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       textAlign: TextAlign.center,
       controller: heightController,

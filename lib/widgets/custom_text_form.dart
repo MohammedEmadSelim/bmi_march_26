@@ -5,12 +5,12 @@ class CustomTextForm extends StatelessWidget {
     super.key,
     this.controller,
     required this.label,
-    required this.enable,
+    required this.readOnly,
     this.onTap
   });
   TextEditingController? controller = TextEditingController();
   final String label;
-  final bool enable;
+  final bool readOnly;
    final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CustomTextForm extends StatelessWidget {
         SizedBox(height: 5),
         TextFormField(
           onTap: onTap,
-          enabled: enable,
+          readOnly: readOnly,
           controller: controller,
           decoration: InputDecoration(
             hintText: label,
