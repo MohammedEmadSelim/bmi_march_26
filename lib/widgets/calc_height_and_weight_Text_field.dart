@@ -28,7 +28,7 @@ class HeightAndWeightTextField extends StatelessWidget {
               heightController.text = finalRes.toString();
             }
           },
-          child: Icon(Icons.remove),
+          child: Icon(Icons.remove,color: Color(0xff484783),),
         ),
         suffixIcon: GestureDetector(
           onTap: () {
@@ -39,7 +39,7 @@ class HeightAndWeightTextField extends StatelessWidget {
               heightController.text = finalRes.toString();
             }
           },
-          child: Icon(Icons.add),
+          child: Icon(Icons.add,color: Color(0xff484783),),
         ),
         hintText: 'your height',
         filled: true,

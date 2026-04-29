@@ -6,10 +6,11 @@ class CustomTextForm extends StatelessWidget {
     this.controller,
     required this.label,
     required this.readOnly,
-    this.onTap
+    this.onTap, required this.hint
   });
   TextEditingController? controller = TextEditingController();
   final String label;
+  final String hint;
   final bool readOnly;
    final void Function()? onTap;
   @override
@@ -24,7 +25,7 @@ class CustomTextForm extends StatelessWidget {
           readOnly: readOnly,
           controller: controller,
           decoration: InputDecoration(
-            hintText: label,
+            hintText: hint,
             filled: true,
             fillColor: const Color(0xffE9E7EA),
             border: OutlineInputBorder(

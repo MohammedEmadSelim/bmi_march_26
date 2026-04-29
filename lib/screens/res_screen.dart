@@ -148,9 +148,8 @@ class ResScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(),
                     Text(
-                      "Under Weight",
+                      bmi.data?.category ?? 'No category',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
@@ -159,7 +158,7 @@ class ResScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "Your BMI is less than 18.5",
+                      "Your BMI is ${bmi.data?.bmi}",
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
@@ -186,7 +185,7 @@ class ResScreen extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   width: 350,
-                  height: 50,
+                  height: 45,
                   decoration: BoxDecoration(
                     color: Color(0xff484783),
                     borderRadius: BorderRadius.circular(12),
@@ -196,7 +195,7 @@ class ResScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24,
+                      fontSize: 18,
                       fontWeight: FontWeight.w900,
                     ),
                   ),

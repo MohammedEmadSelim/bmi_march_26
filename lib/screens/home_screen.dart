@@ -7,23 +7,31 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+      body: Stack(
+        fit: StackFit.expand,
+
         children: [
-          Image.asset('assets/images/first_img.png'),
-          Container(
+          Positioned(
+            bottom: 0,
+            child: Container(
               width: 395,
               height: 376,
               decoration: BoxDecoration(
                 color: Color(0xff7876CD),
                 borderRadius: BorderRadius.circular(25),
               ),
-              child:Padding(padding: EdgeInsetsGeometry.all(20),
-                child:  Column(
+              child: Padding(
+                padding: EdgeInsetsGeometry.symmetric(vertical: 40,horizontal: 25),
+                child: Column(
                   children: [
                     Text(
                       'Know Your Body Better ,Get Your BMI Score in Less Than a Minute!',
-                      style: TextStyle(fontWeight: FontWeight(700), fontSize: 24,color: Colors.white),
+                      style: TextStyle(
+                        fontWeight: FontWeight(700),
+                        fontSize: 24,
+                        letterSpacing: 1.5,
+                        color: Colors.white,
+                      ),
                     ),
                     SizedBox(height: 30),
                     Text(
@@ -31,20 +39,23 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight(400),
                         fontSize: 16,
-                        color: Color(0xff1A6143),
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(height: 20),
                     Divider(),
                     SizedBox(height: 20),
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => InfScreen(),));
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => InfScreen()),
+                        );
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 8),
                         width: 350,
-                        height: 50,
+                        height: 45,
                         decoration: BoxDecoration(
                           color: Color(0xff484783),
                           borderRadius: BorderRadius.circular(12),
@@ -54,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: 18,
                             fontWeight: FontWeight.w900,
                           ),
                         ),
@@ -62,8 +73,13 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+            ),
           ),
+          Positioned(
+              bottom: 350,
+              left: 30,
+              child: Image.asset('assets/images/first_img.png')),
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.

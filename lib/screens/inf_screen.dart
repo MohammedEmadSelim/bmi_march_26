@@ -44,7 +44,7 @@ class _InfScreenState extends State<InfScreen> {
                     CustomTextForm(
                       label: 'Name',
                       readOnly: false,
-                      controller: nameController,
+                      controller: nameController, hint: 'Name',
                     ),
                     CustomTextForm(
                       label: 'Birthdate',
@@ -60,7 +60,9 @@ class _InfScreenState extends State<InfScreen> {
 
                           dateController.text = date.substring(0, 10);
                         }
-                      },
+
+                      }, hint:'Birthdate',
+                      controller: dateController,
                     ),
                     SizedBox(height: 30),
                     GenderSelection(
@@ -81,7 +83,7 @@ class _InfScreenState extends State<InfScreen> {
                       },
                     ),
                     SizedBox(height: 25),
-                    Row(children: [Text('   Your weight(cm)')]),
+                    Row(children: [Text('   Your weight(Kg)')]),
                     SizedBox(height: 5),
                     HeightAndWeightTextField(
                       heightController: weightController,
@@ -116,7 +118,7 @@ class _InfScreenState extends State<InfScreen> {
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 8),
                         width: 350,
-                        height: 50,
+                        height: 45,
                         decoration: BoxDecoration(
                           color: Color(0xff484783),
                           borderRadius: BorderRadius.circular(12),
@@ -126,7 +128,7 @@ class _InfScreenState extends State<InfScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: 18,
                             fontWeight: FontWeight.w900,
                           ),
                         ),
@@ -156,9 +158,9 @@ Future<Response<dynamic>> fetchBmi({
       ),
     );
     return res;
-  } on DioException catch (ec) {
-    rethrow;
+  } on DioException catch (ex) {
+    throw ex;
   } catch (e) {
-    rethrow;
+    throw e;
   }
 }
