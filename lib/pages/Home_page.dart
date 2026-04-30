@@ -1,22 +1,21 @@
 import 'package:bmi/class/human.dart';
-import 'package:bmi/cubit/bitrh_date_cubit/birth_date_cubit.dart';
+
 import 'package:bmi/cubit/gender_cubit/gender_cubit.dart';
 import 'package:bmi/cubit/hight_cubit/hight_cubit.dart';
-import 'package:bmi/cubit/name_cubit/name_cubit.dart';
+
 import 'package:bmi/cubit/weight_cubit/weight_cubit.dart';
 import 'package:bmi/pages/calculate_bmi_page.dart';
 import 'package:bmi/widgets/Buttom_send.dart';
 
-import 'package:bmi/widgets/CustomDateInput.dart';
-import 'package:bmi/widgets/Custom_input.dart';
+
 import 'package:bmi/widgets/custom_text_input.dart';
 import 'package:bmi/widgets/gender_select.dart';
 import 'package:bmi/widgets/hi_we.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -26,8 +25,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<NameCubit>(create: (context) => NameCubit()),
-        BlocProvider<BirthDateCubit>(create: (context) => BirthDateCubit()),
         BlocProvider<GenderCubit>(create: (context) => GenderCubit()),
         BlocProvider<HightCubit>(create: (context) => HightCubit()),
         BlocProvider<WeightCubit>(create: (context) => WeightCubit()),
@@ -53,111 +50,116 @@ class HomePage extends StatelessWidget {
                     ),
                     CustomTextInput(controller: name_filed, text: 'Name'),
                     SizedBox(height: 2),
-                    // CustomTextInput(
-                    //   controller: date_filed,
-                    //   text: 'BirthDate',
-                    //   read_only: true,
-                    //   on_tap: () async {
-                    //     var res = await showDatePicker(
-                    //       context: context,
-                    //       firstDate: DateTime(1950),
-                    //       lastDate: DateTime(2026),
-                    //     );
-                    //     if (res != null) {
-                    //       String format = DateFormat('yyyy-MM-dd').format(res);
-                    //       date_filed.text = format;
-                    //     }
-                    //   },
-                    // ),
-                     // CustomNameInput(),
-                      SizedBox(height: 20),
-                      CustomDateInput(),
-                      SizedBox(height: 20),
-                      GenderSelector(),
-                      SizedBox(height: 20),
-                      // InputHight(),
-                      BlocBuilder<HightCubit, double>(
-                        builder: (context, state) {
-                          return CustomInputCounter(
-                            label: 'Your Height(cm)',
-                            value: state,
-                            onIncrement:
-                                () => context.read<HightCubit>().increment(),
-                            onDecrement:
-                                () => context.read<HightCubit>().decrement(),
+                    CustomTextInput(
+                      controller: date_filed,
+                      text: 'BirthDate',
+                      read_only: true,
+                      on_tap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900), // أقدم تاريخ ممكن
+                            lastDate:
+                                DateTime.now(), // بنمنع اختيار تاريخ في المستقبل
                           );
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      BlocBuilder<WeightCubit, double>(
-                        builder: (context, state) {
-                          return CustomInputCounter(
-                            label: 'Your Weight(kg)',
-                            value: state,
-                            onIncrement:
-                                () => context.read<WeightCubit>().increment(),
-                            onDecrement:
-                                () => context.read<WeightCubit>().decrement(),
-                          );
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      Buttom_send(
-                        on_pers: () {
-                          var name, gender, birth_date;
-                          var height, weight;
-                          name = name_filed.text;
-                         // name = context.read<NameCubit>().state;
-                          birth_date = context.read<BirthDateCubit>().state;
-                          gender = context.read<GenderCubit>().state;
-                          height = context.read<HightCubit>().state;
-                          weight = context.read<WeightCubit>().state;
-                          if (name != '' &&
-                              birth_date != '' &&
-                              gender != '' &&
-                              height != 0 &&
-                              weight != 0) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (c) {
-                                  return CalculateBmiPage(
-                                    human: Human(
-                                      name: name,
-                                      birth_date: birth_date,
-                                      gender: gender,
-                                      height: height,
-                                      weight: weight,
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          } else {
-                            // إظهار الرسالة في نص الشاشة لو في بيانات ناقصة
-                            showDialog(
-                              context: context,
-                              builder:
-                                  (context) => AlertDialog(
-                                    title: const Text(
-                                      'Error',
-                                      style: TextStyle(color: Colors.red),
-                                    ),
-                                    content: const Text(
-                                      'Please fill in all the data to calculate BMI',
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                            );
+                          if (pickedDate != null) {
+                            String formattedDate =
+                                "${pickedDate.year}-${pickedDate.month}-${pickedDate.day}";
+
+                           
+
+                            date_filed.text = formattedDate;
                           }
-                        },
-                        text: 'Calculate BMI',
-                      ),
+
+                      },
+                    ),
+                    // CustomNameInput(),
+                    SizedBox(height: 20),
+                    GenderSelector(),
+                    SizedBox(height: 20),
+                    // InputHight(),
+                    BlocBuilder<HightCubit, double>(
+                      builder: (context, state) {
+                        return CustomInputCounter(
+                          label: 'Your Height(cm)',
+                          value: state,
+                          onIncrement:
+                              () => context.read<HightCubit>().increment(),
+                          onDecrement:
+                              () => context.read<HightCubit>().decrement(),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    BlocBuilder<WeightCubit, double>(
+                      builder: (context, state) {
+                        return CustomInputCounter(
+                          label: 'Your Weight(kg)',
+                          value: state,
+                          onIncrement:
+                              () => context.read<WeightCubit>().increment(),
+                          onDecrement:
+                              () => context.read<WeightCubit>().decrement(),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    Buttom_send(
+                      on_pers: () {
+                        var name, gender, birth_date;
+                        var height, weight;
+                        name = name_filed.text;
+                        // name = context.read<NameCubit>().state;
+                        birth_date = date_filed.text;
+                        gender = context.read<GenderCubit>().state;
+                        height = context.read<HightCubit>().state;
+                        weight = context.read<WeightCubit>().state;
+                        if (name != '' &&
+                            birth_date != '' &&
+                            gender != '' &&
+                            height != 0 &&
+                            weight != 0) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (c) {
+                                return CalculateBmiPage(
+                                  human: Human(
+                                    name: name,
+                                    birth_date: date_filed.text,
+                                    gender: gender,
+                                    height: height,
+                                    weight: weight,
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        } else {
+                          // إظهار الرسالة في نص الشاشة لو في بيانات ناقصة
+                          showDialog(
+                            context: context,
+                            builder:
+                                (context) => AlertDialog(
+                                  title: const Text(
+                                    'Error',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  content: const Text(
+                                    'Please fill in all the data to calculate BMI',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                          );
+                        }
+                      },
+                      text: 'Calculate BMI',
+                    ),
                   ],
                 ),
               ),
