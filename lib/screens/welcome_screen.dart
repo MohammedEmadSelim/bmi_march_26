@@ -1,5 +1,3 @@
-
-
 import 'package:bmi_march_26/screens/info_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +11,6 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-
-
 
 
   @override
