@@ -27,7 +27,7 @@ final String gender;
                 color:
                     gender.toLowerCase() == 'male'
                         ? Color(0xff7876CD)
-                        : Color(0xffFF8767),
+                        : gender.toLowerCase() == 'female' ? Color(0xffFF8767) : Colors.pinkAccent,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
@@ -144,7 +144,7 @@ final String gender;
                     Image.asset(
                       gender.toLowerCase() == 'male'
                           ? 'assets/images/bmi_nti/Vector.png'
-                          : 'assets/images/bmi_nti/fam.png',
+                          : gender.toLowerCase() == 'female' ? 'assets/images/bmi_nti/Vector-1.png' : 'assets/images/bmi_nti/Vector-2.png',
                       height: 270,
                       width: 70,
                     ),
