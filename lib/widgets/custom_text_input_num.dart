@@ -24,6 +24,9 @@ class CustomTextInputNum_Height extends StatelessWidget {
               TextFormField(
                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 0, 0, 0) ),
                 controller: controller,
+                onChanged: (value){
+                  controller.text = value;
+                },
                 textAlign: TextAlign.center,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
@@ -82,6 +85,7 @@ class CustomTextInputNum_Weight extends StatelessWidget {
               TextFormField(
                 controller: controller,
                 textAlign: TextAlign.center,
+                  
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 0, 0, 0) ),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(

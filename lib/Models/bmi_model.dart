@@ -1,7 +1,7 @@
 class BmiResponse {
   final String? status;
   final dynamic error;
-  final BmiData? data;
+  final Human? data;
   final Premium? premium;
 
   BmiResponse({
@@ -15,7 +15,7 @@ class BmiResponse {
     return BmiResponse(
       status: json['status'] as String?,
       error: json['error'],
-      data: json['data'] != null ? BmiData.fromJson(json['data']) : null,
+      data: json['data'] != null ? Human.fromJson(json['data']) : null,
       premium:
       json['premium'] != null ? Premium.fromJson(json['premium']) : null,
     );
@@ -31,8 +31,8 @@ class BmiResponse {
   }
 }
 
-class BmiData {
-  final String? height;
+class Human {
+ final String? height;
   final String? weight;
   final double? bmi;
   final double? bmiPrime;
@@ -42,7 +42,8 @@ class BmiData {
   final IdealWeightRange? idealWeightRange;
   final double? weightToChange;
 
-  BmiData({
+  Human({ 
+    
     this.height,
     this.weight,
     this.bmi,
@@ -54,8 +55,8 @@ class BmiData {
     this.weightToChange,
   });
 
-  factory BmiData.fromJson(Map<String, dynamic> json) {
-    return BmiData(
+  factory Human.fromJson(Map<String, dynamic> json) {
+    return Human(
       height: json['height'] as String?,
       weight: json['weight'] as String?,
       bmi: (json['bmi'] as num?)?.toDouble(),
