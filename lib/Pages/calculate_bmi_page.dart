@@ -60,7 +60,7 @@ final String gender;
                         ),
                         SizedBox(height: 15),
                         Padding(
-                          padding: const EdgeInsets.only(left: 70),
+                          padding: const EdgeInsets.only(left: 50),
                           child: Text(
                             // result_Bmi(human.height, human.weight).toString(),
                            bmi.data?.bmi.toString() ?? 'N/A'
@@ -73,7 +73,7 @@ final String gender;
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 76),
+                          padding: const EdgeInsets.only(left: 70),
                           child: Text(
                             'BMI Result',
                             style: TextStyle(
@@ -84,61 +84,63 @@ final String gender;
                           ),
                         ),
                         SizedBox(height: 30),
-                        Row(
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  bmi.data!.bmi!.toString() ?? 'N/A' + ' ' + 'cm',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontFamily: 'DM Sans',
-                                    fontWeight: FontWeight.w900,
+                        Center(
+                          child: Row(
+                            children: [
+                              Column(
+                                children: [
+                                  Text(
+                                    bmi.data!.height!.toString() ,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontFamily: 'DM Sans',
+                                      fontWeight: FontWeight.w900,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'height',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontFamily: 'DM Sans',
+                                  Text(
+                                    'height',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontFamily: 'DM Sans',
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              height: 50,
-                              width: 2,
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  bmi.data?.weight.toString() ?? 'N/A' + ' ' + 'kg',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontFamily: 'DM Sans',
-                                    fontWeight: FontWeight.w900,
+                                ],
+                              ),
+                              Container(
+                                height: 50,
+                                width: 2,
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    bmi.data!.weight!.toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontFamily: 'DM Sans',
+                                      fontWeight: FontWeight.w900,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'weight',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontFamily: 'DM Sans',
+                                  Text(
+                                    'weight',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontFamily: 'DM Sans',
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(width: 8),
+                    SizedBox(width: 45),
                     Image.asset(
                       gender.toLowerCase() == 'male'
                           ? 'assets/images/bmi_nti/Vector.png'
