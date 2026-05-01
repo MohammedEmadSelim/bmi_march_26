@@ -1,4 +1,3 @@
-import 'package:bmi_march_26/screens/info_screen.dart';
 import 'package:bmi_march_26/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
