@@ -1,5 +1,10 @@
-import 'package:bmi_march_26/widget/custum%20text.dart';
+import 'package:bmi_march_26/screen/result_screen.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../models/model.dart';
+import '../widget/custom text.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({super.key});
@@ -11,107 +16,124 @@ class InfoScreen extends StatefulWidget {
 class _InfoScreenState extends State<InfoScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
-  int? gender;
+
+  final TextEditingController heightController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+
+  int selectedGender = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: [
-              Text(
-                "BMI",
-                style: TextStyle(
-                  letterSpacing: 10,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 36,
-                  color: Color(0xff01502E),
-                ),
-              ),
-              SizedBox(height: 45),
-
-              CustomTextFormField(
-                nameController: nameController,
-                title: "Name",
-                hint: "Name",
-                onChanged: (value) {
-                  print(value);
-                },
-              ),
-              SizedBox(height: 20),
-
-              CustomTextFormField(
-                nameController: dateController,
-                hint: "Birthdate",
-                title: "Birthdate",
-                readOnly: true,
-                onTap: () async {
-                  print("Birthdate field taped");
-                  var res = await showDatePicker(
-                    context: context,
-                    firstDate: DateTime(2010),
-                    lastDate: DateTime(2030),
-                  );
-                  print(res);
-                  if (res != null) {
-                    String date = res.toIso8601String();
-
-                    dateController.text = date.substring(0, 10);
-                  }
-                },
-              ),
-              SizedBox(height: 36),
-
-              Row(
-                children: [
-                  Text(
-                    "Choose Gender",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff333333),
-                    ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                const Text(
+                  "BMI",
+                  style: TextStyle(
+                    letterSpacing: 10,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 36,
+                    color: Color(0xff01502E),
                   ),
-                ],
-              ),
-              SizedBox(height: 20),
-              GenderSelection(
-                selectedGender: (value) {
-                  print(value);
-                  gender = value;
-                },
-              ),
-              SizedBox(height: 40),
-              SizedBox(
-                width: 400,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // navigation to info screen
-                    print(nameController.text);
-                    print(dateController.text);
-                    print(gender);
+                ),
+                const SizedBox(height: 45),
+
+                CustomTextFormField(
+                  nameController: nameController,
+                  title: "Name",
+                  hint: "Name",
+                ),
+                const SizedBox(height: 20),
+
+                CustomTextFormField(
+                  nameController: dateController,
+                  hint: "Birthdate",
+                  title: "Birthdate",
+                  readOnly: true,
+                  onTap: () async {
+                    var res = await showDatePicker(
+                      context: context,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2030),
+                    );
+                    if (res != null) {
+                      String date = res.toIso8601String();
+                      dateController.text = date.substring(0, 10);
+                    }
                   },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    backgroundColor: Color(0xff484783),
-                  ),
+                ),
+                const SizedBox(height: 30),
 
-                  child: const Text(
-                    "Get Started",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                GenderSelection(
+                  selectedGender: (value) {
+                    selectedGender = value;
+                  },
+                ),
+
+                const SizedBox(height: 30),
+
+                CalculatedTextFormField(
+                  controller: heightController,
+                  title: "Height (cm)",
+                  hint: "Enter height",String: null,
+
+                ),
+                const SizedBox(height: 20),
+
+                CalculatedTextFormField(
+                  controller: weightController,
+                  title: "Weight (kg)",
+                  hint: "Enter weight", String: null,
+                ),
+
+                const SizedBox(height: 40),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      print(nameController.text);
+                      print(dateController.text);
+                      print(heightController.text);
+                      print(weightController.text);
+                      print(selectedGender);
+                      var res = await fetchBmi();
+                      var bmi = BmiResponse.fromJson(res.data);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => resultscreen(bmi: bmi,      name: nameController.text,
+                            birthdate: dateController.text,),
+                        ),
+                      );
+                    },
+
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      backgroundColor: const Color(0xff484783),
+                    ),
+                    child: const Text(
+                      "Calculated BMI",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
@@ -119,8 +141,10 @@ class _InfoScreenState extends State<InfoScreen> {
   }
 }
 
+
+
 class GenderSelection extends StatefulWidget {
-  GenderSelection({super.key, required this.selectedGender});
+  const GenderSelection({super.key, required this.selectedGender});
 
   final ValueChanged<int> selectedGender;
 
@@ -129,13 +153,13 @@ class GenderSelection extends StatefulWidget {
 }
 
 class _GenderSelectionState extends State<GenderSelection> {
-  int genderSelection = 0;
+  int genderSelection = 1;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           children: [
             Text(
               "Choose Gender",
@@ -147,13 +171,13 @@ class _GenderSelectionState extends State<GenderSelection> {
             ),
           ],
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () {
-                print("male");
                 genderSelection = 0;
                 widget.selectedGender(genderSelection);
                 setState(() {});
@@ -162,7 +186,7 @@ class _GenderSelectionState extends State<GenderSelection> {
                 width: 120,
                 height: 130,
                 decoration: BoxDecoration(
-                  color: Color(0xffB3B2EA).withAlpha(50),
+                  color: const Color(0xffB3B2EA).withAlpha(50),
                   borderRadius: BorderRadius.circular(16),
                   border: genderSelection == 0
                       ? Border.all(color: Colors.lightGreenAccent, width: 2)
@@ -170,14 +194,15 @@ class _GenderSelectionState extends State<GenderSelection> {
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [Image.asset("assets/male.png")],
+                  children: [
+                    Image.asset("assets/male.png"),
+                  ],
                 ),
               ),
             ),
-            SizedBox(width: 40),
+            const SizedBox(width: 40),
             GestureDetector(
               onTap: () {
-                print("female");
                 genderSelection = 1;
                 widget.selectedGender(genderSelection);
                 setState(() {});
@@ -186,7 +211,7 @@ class _GenderSelectionState extends State<GenderSelection> {
                 width: 120,
                 height: 130,
                 decoration: BoxDecoration(
-                  color: Color(0xffB3B2EA).withAlpha(50),
+                  color: const Color(0xffB3B2EA).withAlpha(50),
                   borderRadius: BorderRadius.circular(16),
                   border: genderSelection == 1
                       ? Border.all(color: Colors.lightGreenAccent, width: 2)
@@ -194,184 +219,116 @@ class _GenderSelectionState extends State<GenderSelection> {
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [Image.asset("assets/female.png")],
+                  children: [
+                    Image.asset("assets/female.png"),
+                  ],
                 ),
               ),
             ),
           ],
         ),
-        SizedBox(height: 40),
-        SizedBox(
-          width: 400,
-          child: ElevatedButton(
-            onPressed: () {
-              // print(nameController.text);
-              // print(dateController.text);
-            },
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+      ],
+    );
+  }
+}
+
+
+
+class CalculatedTextFormField extends StatefulWidget {
+  const CalculatedTextFormField({
+    super.key,
+    required this.controller,
+    required this.title,
+    required this.hint, required String
+  });
+
+  final TextEditingController controller;
+  final String title;
+  final String hint;
+
+  @override
+  State<CalculatedTextFormField> createState() =>
+      _CalculatedTextFormFieldState();
+}
+
+class _CalculatedTextFormFieldState
+    extends State<CalculatedTextFormField> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              widget.title,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Color(0xff333333),
               ),
-              backgroundColor: Color(0xff484783),
             ),
-            child: const Text(
-              "Get Started",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
+          ],
+        ),
+        const SizedBox(height: 18),
+
+        TextFormField(
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          textAlign: TextAlign.center,
+          controller: widget.controller,
+          decoration: InputDecoration(
+            suffixIcon: GestureDetector(
+              onTap: () {
+                var res = int.tryParse(widget.controller.text);
+                if (res != null) {
+                  widget.controller.text = (++res).toString();
+                }
+              },
+              child: const Icon(Icons.add),
+            ),
+            prefixIcon: GestureDetector(
+              onTap: () {
+                var res = int.tryParse(widget.controller.text);
+                if (res != null) {
+                  widget.controller.text = (--res).toString();
+                }
+              },
+              child: const Icon(Icons.remove),
+            ),
+            hintText: widget.hint,
+            fillColor: const Color(0xffB3B2EA).withAlpha(50),
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
             ),
           ),
         ),
       ],
     );
   }
+}
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Column(
-  //     children: [
-  //       Row(
-  //         children: [
-  //           Text(
-  //             "Choose Gender",
-  //             style: TextStyle(
-  //               fontSize: 14,
-  //               fontWeight: FontWeight.w500,
-  //               color: Color(0xff333333),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  //   // ],
-  //   // ),
-  //   // SizedBox(height: 20),
-  //   //
-  //   // Row(
-  //   // mainAxisAlignment: MainAxisAlignment.center,
-  //   // children: [
-  //   // Container(
-  //   // width: 120,
-  //   // height: 130,
-  //   // decoration: BoxDecoration(
-  //   // color: Color(0xffB3B2EA).withAlpha(50),
-  //   // borderRadius: BorderRadius.circular(16),
-  //   // ),
-  //   // child:Column(
-  //   // mainAxisAlignment: MainAxisAlignment.end,
-  //   // Row(
-  //   // mainAxisAlignment: MainAxisAlignment.center,
-  //   // children: [
-  //   // GestureDetector(
-  //   // onTap: () {
-  //   // print("male");
-  //   // genderSelection = 0;
-  //   // widget.selectedGender(genderSelection);
-  //   // setState(() {});
-  //   // },
-  //   // child: Container(
-  //   // width: 120,
-  //   // height: 130,
-  //   // decoration: BoxDecoration(
-  //   // color: Color(0xffB3B2EA).withAlpha(50),
-  //   // borderRadius: BorderRadius.circular(16),
-  //   // border: genderSelection == 0
-  //   // ? Border.all(color: Colors.lightGreenAccent, width: 2)
-  //   //     : null,
-  //   // ),
-  //   // child: Column(
-  //   // mainAxisAlignment: MainAxisAlignment.end,
-  //   //
-  //   // children: [
-  //   // Image.asset("assets/male.png"),
-  //   // ],
-  //   // ) ,
-  //   // ),
-  //   // SizedBox(width: 40,),
-  //   // Container(
-  //   // width: 120,
-  //   // height: 130,
-  //   // decoration: BoxDecoration(
-  //   // color: Color(0xffB3B2EA).withAlpha(50),
-  //   // borderRadius: BorderRadius.circular(16),
-  //   // ),
-  //   // child:Column(
-  //   // mainAxisAlignment: MainAxisAlignment.end,
-  //   // children: [
-  //   // Image.asset("assets/female.png",),
-  //   // ],
-  //   // ) ,
-  //   //
-  //   // ),
-  //   //
-  //   // ],
-  //   // children: [Image.asset("assets/male.png")],
-  //   // ),
-  //   // ),
-  //   // ),
-  //   //
-  //   // SizedBox(width: 40),
-  //   // GestureDetector(
-  //   // onTap: () {
-  //   // print("female");
-  //   // genderSelection = 1;
-  //   // widget.selectedGender(genderSelection);
-  //   // setState(() {});
-  //   // },
-  //   // child: Container(
-  //   // width: 120,
-  //   // height: 130,
-  //   // decoration: BoxDecoration(
-  //   // color: Color(0xffB3B2EA).withAlpha(50),
-  //   // borderRadius: BorderRadius.circular(16),
-  //   // border: genderSelection == 1
-  //   // ? Border.all(color: Colors.lightGreenAccent, width: 2)
-  //   //     : null,
-  //   // ),
-  //   // child: Column(
-  //   // mainAxisAlignment: MainAxisAlignment.end,
-  //   // children: [Image.asset("assets/female.png")],
-  //   // ),
-  //   // ),
-  //   // SizedBox(height: 40),
-  //   // SizedBox(
-  //   // width: 400,
-  //   // child: ElevatedButton(
-  //   // onPressed: () {
-  //   // // navigation to info screen
-  //   // print(nameController.text);
-  //   // print(dateController.text);
-  //   // },
-  //   // style: ElevatedButton.styleFrom(
-  //   // shape: RoundedRectangleBorder(
-  //   // borderRadius: BorderRadius.circular(12),
-  //   // ),
-  //   // backgroundColor: Color(0xff484783),
-  //   // ),
-  //   //
-  //   // child: const Text(
-  //   // "Get Started",
-  //   // style: TextStyle(
-  //   // color: Colors.white,
-  //   // fontSize: 18,
-  //   // fontWeight: FontWeight.w600,
-  //   // ),
-  //   // ),
-  //   // ),
-  //   // ),
-  //   // ],
-  //   // ),
-  //   // ),
-  //   // ),
-  //   // ),
-  //   // ],
-  //   // )
-  //   // ,
-  //   // ]
-  //   // ,
-  //   // );
-  // }
+
+Future<Response<dynamic>> fetchBmi() async {
+  Dio apiObj = Dio();
+  try {
+    var res = await apiObj.get(
+      "https://api.apiverve.com/v1/bmicalculator?weight=70&height=170&unit=metric",
+      options: Options(
+        headers: {"x-api-key": "ff870e7d-5d78-4309-82bc-0b5e0347db0f"},
+      ),
+    );
+    return res;
+  } on DioException catch (ec) {
+    throw ec;
+    print(ec.response);
+  } catch (e) {
+    throw e;
+
+    print("========>${e}");
+  }
 }
