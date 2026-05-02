@@ -7,11 +7,14 @@ class CalculatedTextFormField extends StatelessWidget {
     required this.controller,
     required this.title,
     required this.hint,
+    required this.validator,
   });
 
   final TextEditingController controller;
   final String title;
   final String hint;
+  final String? Function(String?)? validator;
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class CalculatedTextFormField extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           textAlign: TextAlign.center,
           controller: controller,
+          validator: validator,
           decoration: InputDecoration(
             suffixIcon: GestureDetector(
               onTap: () {
