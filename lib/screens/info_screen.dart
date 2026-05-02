@@ -63,7 +63,7 @@ class _InfoScreenState extends State<InfoScreen> {
                       print("Birthdate field taped");
                       var res = await showDatePicker(
                         context: context,
-                        firstDate: DateTime(2010),
+                        firstDate: DateTime(2000),
                         lastDate: DateTime(2030),
                       );
                       print(res);
