@@ -4,7 +4,7 @@ void main() {
   runApp(const Bmi_App());
 }
 
-class Bmi_App extends StatelessWidget {
+ class Bmi_App extends StatelessWidget {
   const Bmi_App({super.key});
 
 
