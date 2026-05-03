@@ -52,7 +52,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xffF8F9FFE5),
+                      color: Color(0xF8F9FFE5),
+
                     ),
                   ),
                   SizedBox(height: 40),
