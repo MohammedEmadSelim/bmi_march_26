@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class HeightAndWeightTextField extends StatelessWidget {
+  const HeightAndWeightTextField({
+    super.key,
+    required this.heightController,
+    required this.validator,
+  });
+
+  final TextEditingController heightController;
+  final String? Function(String?)? validator ;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.numberWithOptions(),
+      validator: validator,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      textAlign: TextAlign.center,
+      controller: heightController,
+      decoration: InputDecoration(
+        prefixIcon: GestureDetector(
+          onTap: () {
+            var res = int.tryParse(heightController.text);
+            if (res != null) {
+              var finalRes = --res;
+
+              heightController.text = finalRes.toString();
+            }
+          },
+          child: Icon(Icons.remove,color: Color(0xff484783),),
+        ),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            var res = int.tryParse(heightController.text);
+            if (res != null) {
+              var finalRes = ++res;
+
+              heightController.text = finalRes.toString();
+            }
+          },
+          child: Icon(Icons.add,color: Color(0xff484783),),
+        ),
+        hintText: 'your height',
+        filled: true,
+        fillColor: const Color(0xffE9E7EA),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+}
